@@ -1,0 +1,12 @@
+matrix_A: [0.0, 1.0,
+           0.0, 1.0]
+           
+matrix_B: [0.0,
+	         1.0]
+
+matrix_C: [1.0 , 0.0]
+
+matrix_D: [0]
+	   
+init_state_x: [0.0,
+               0.0]

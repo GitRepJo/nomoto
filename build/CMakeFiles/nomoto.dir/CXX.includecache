@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jo/git/nomoto/nomoto_model.cpp
+nomoto_model.hpp
+/home/jo/git/nomoto/nomoto_model.hpp
+yaml-cpp/yaml.h
+/home/jo/git/nomoto/yaml-cpp/yaml.h
+eigen3/Eigen/Dense
+/home/jo/git/nomoto/eigen3/Eigen/Dense
+iostream
+-
+
+/home/jo/git/nomoto/nomoto_model.hpp
+eigen3/Eigen/Dense
+-
+tuple
+-
+string
+-
+vector
+-
+
