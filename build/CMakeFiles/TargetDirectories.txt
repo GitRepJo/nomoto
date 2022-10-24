@@ -1,3 +1,0 @@
-/home/jo/git/nomoto/build/CMakeFiles/rebuild_cache.dir
-/home/jo/git/nomoto/build/CMakeFiles/edit_cache.dir
-/home/jo/git/nomoto/build/CMakeFiles/nomoto.dir
