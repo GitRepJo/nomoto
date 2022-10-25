@@ -1,6 +1,19 @@
-/**
-	Copyright (c) 2022 Jonas Mahler
+// Copyright (c) 2022 Jonas Mahler
 	
+// This file is part of nomoto.
+
+// nomoto is free software: you can redistribute it and/or modify it under the terms 
+// of the GNU General Public License as published by the Free Software Foundation, 
+// either version 3 of the License, or (at your option) any later version.
+
+// nomoto is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// See the GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License along 
+// with nomoto. If not, see <https://www.gnu.org/licenses/>. 
+
+/**
     @name nomoto_model.hpp
 	@brief Calculates the Nomoto shipmodel as specified in a configuration file.
 	@author Jonas Mahler
@@ -14,9 +27,20 @@
 #include<tuple>
 #include<string>
 #include<vector>
+#include <iostream>
 
 using namespace Eigen;
-
+/**
+* @brief Print a std::vector entry by entry
+* @param -
+*/
+static inline void print (std::string const desc, std::vector<double> const &input)
+{
+    std::cout << desc << ' ';
+    for (double i = 0; i < input.size(); i++) {
+        std::cout << input.at(i) << ' ';
+    }
+}
 /**
 * @class Nomoto
 * @brief Sets up, simulates and saves the results of a Nomoto model of a ship
@@ -71,7 +95,8 @@ private:
     // MatrixXd is an Eigen typdef for Matrix<double, Dynamic, Dynamic>
     MatrixXd A,B,C,D; // A,B,C matrices
     MatrixXd x0;     // initial state
-    MatrixXd inputSequence;  // input sequnce, dimensions: m\times  timeSamples
+    MatrixXd steps;  // input sequnce, dimensions: m\times  timeSamples
+    MatrixXd angle;
     MatrixXd simulatedStateSequence; //simulated state sequence, dimensions: n\times  timeSamples
     MatrixXd simulatedOutputSequence; //simulated output sequence, dimensions: r\times  timeSamples
     MatrixXd timeRowVector;           // time row vector [0,1,2,3,\ldots, timeSamples-1]

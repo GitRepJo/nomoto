@@ -11,7 +11,7 @@
             "label": "test",
             "group": "test",
             "type": "shell",
-            "command": ""
+            "command": "cd /home/$USER/git/nomoto/build && ./nomoto "
         }
     ]
 }

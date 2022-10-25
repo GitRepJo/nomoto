@@ -10,3 +10,10 @@ matrix_D: [0]
 	   
 init_state_x: [0.0,
                0.0]
+# Sum of all entires in vector results in total simulation steps (e.g. 10.0,10.0,10.0 = 30 steps)
+# Match number of simulation_rudder_angle
+simulation_steps:        [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]
+
+# This is the angle of each simulation sequence (e.g. 10.0 steps x 45.0 degree ,10.0 steps x 45.0 degree ,... , 10.0 steps x 0.0 degree )
+# Match number of simulation_steps
+simulation_rudder_angle: [0.0  , 45.0 , 0.0  , 315.0, 0.0  , 45.0 , 0,0  , 315.0, 0.0  , 0.0  ]
