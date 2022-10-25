@@ -26,7 +26,7 @@
 #include <eigen3/Eigen/Dense>
 #include<tuple>
 #include<string>
-#include<vector>
+#include <vector>
 #include <iostream>
 
 using namespace Eigen;
@@ -36,10 +36,11 @@ using namespace Eigen;
 */
 static inline void print (std::string const desc, std::vector<double> const &input)
 {
-    std::cout << desc << ' ';
+    std::cout << desc << std::endl;
     for (double i = 0; i < input.size(); i++) {
-        std::cout << input.at(i) << ' ';
+        std::cout << input.at(i) <<' ';
     }
+    std::cout << "\n \n" << ' ';
 }
 /**
 * @class Nomoto
@@ -95,8 +96,7 @@ private:
     // MatrixXd is an Eigen typdef for Matrix<double, Dynamic, Dynamic>
     MatrixXd A,B,C,D; // A,B,C matrices
     MatrixXd x0;     // initial state
-    MatrixXd steps;  // input sequnce, dimensions: m\times  timeSamples
-    MatrixXd angle;
+    std::vector<double> inputSeqRudAngle;
     MatrixXd simulatedStateSequence; //simulated state sequence, dimensions: n\times  timeSamples
     MatrixXd simulatedOutputSequence; //simulated output sequence, dimensions: r\times  timeSamples
     MatrixXd timeRowVector;           // time row vector [0,1,2,3,\ldots, timeSamples-1]

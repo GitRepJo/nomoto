@@ -2,6 +2,7 @@
     "files.associations": {
         "functional": "cpp",
         "memory": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "variant": "cpp"
     }
 }

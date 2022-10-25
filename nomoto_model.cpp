@@ -37,12 +37,9 @@ Nomoto::Nomoto()
 	B.resize(1, 1); B.setZero();
 	C.resize(1, 1); C.setZero();
 	x0.resize(1, 1); x0.setZero();
-	steps.resize(1, 1); steps.setZero();
-	angle.resize(1, 1); angle.setZero();
-	
+	inputSeqRudAngle.push_back(0);
 	simulatedStateSequence.resize(1, 1); simulatedStateSequence.setZero();
 	simulatedOutputSequence.resize(1, 1); simulatedOutputSequence.setZero();
-	timeRowVector.resize(1, 1); timeRowVector.setZero();
 }
 Nomoto::~Nomoto()
 {}
@@ -53,23 +50,23 @@ void Nomoto::read(std::string config_file)
 
     const vector<double> eigenVecA = config["matrix_A"].as<vector<double>>();
     Eigen::Matrix<double,2,2,Eigen::RowMajor> A(eigenVecA.data());
-    cout << "Matrix  A: " << A << endl;
+    cout << "Matrix  A: " << A << "\n" << endl;
 
 	const vector<double> eigenVecB = config["matrix_A"].as<vector<double>>();
     Eigen::Matrix<double,2,1> B(eigenVecB.data());
-    cout << "Matrix  B: " << B << endl;
+    cout << "Matrix  B: " << B << "\n" << endl;
 
 	const vector<double> eigenVecC = config["matrix_C"].as<vector<double>>();
     Eigen::Matrix<double,1,2> C(eigenVecA.data());
-    cout << "Matrix  C: " << C << endl;
+    cout << "Matrix  C: " << C << "\n" << endl;
 
 	const vector<double> eigenVecD = config["matrix_D"].as<vector<double>>();
     Eigen::Matrix<double,1,1> D(eigenVecD.data());
-    cout << "Matrix  D: " << D << endl;
+    cout << "Matrix  D: " << D << "\n" << endl;
 
 	const vector<double> eigenVecInit = config["init_state_x"].as<vector<double>>();
-    Eigen::Matrix<double,2,1> initState(eigenVecInit.data());
-    cout << "Matrix initState: " << initState << endl;
+    Eigen::Matrix<double,2,1> x0(eigenVecInit.data());
+    cout << "Matrix initState: " << x0 <<"\n" <<  endl;
 
 	// Sum of all entires in vector results in total simulation steps (e.g. 10.0,10.0,10.0 = 30 steps)
 	const vector<double> eigenVecSteps = config["simulation_steps"].as<vector<double>>();
@@ -80,11 +77,11 @@ void Nomoto::read(std::string config_file)
 	print("Rudder angle for simulation steps:",eigenVecAngle);
 	
 	// Calculate the input sequence of rudder angles with simulation steps and angles
-	vector<double> inputSeqRudAngle;
-	for (int i = 0; i < sizeof(eigenVecSteps); i++)
+
+	for (int i = 0; i < eigenVecSteps.size(); i++)
 	{	
 		vector<double> stepsPerAngle(eigenVecSteps[i],eigenVecAngle[i]);
-		//print("steps per angle:", stepsPerAngle);
+		
 		inputSeqRudAngle.insert(inputSeqRudAngle.end(),stepsPerAngle.begin(),stepsPerAngle.end());
 	}
 	print("Input sequence of rudder angles for simulation:",inputSeqRudAngle);
@@ -92,10 +89,14 @@ void Nomoto::read(std::string config_file)
 
 void Nomoto::runSequence()
 {	
-	// Calculate the sequence for rudder angle. One rudder angle resembles one timestep
+	simulatedStateSequence.resize(x0.rows(),inputSeqRudAngle.size());
+	simulatedStateSequence.setZero();
 	
-
-	for (int j = 0; j < timeSamples; j++)
+	simulatedOutputSequence.resize(x0.cols(),inputSeqRudAngle.size());
+	simulatedOutputSequence.setZero();
+	
+	// Calculate the sequence for rudder angle. One rudder angle resembles one timestep
+	for (int j = 0; j < inputSeqRudAngle.size(); j++)
 	{
 		if (j == 0)
 		{
@@ -104,11 +105,14 @@ void Nomoto::runSequence()
 		}
 		else
 		{
-			//simulatedStateSequence.col(j) = A * simulatedStateSequence.col(j - 1) + B * inputSequence.col(j - 1);
-			//simulatedOutputSequence.col(j) = C * simulatedStateSequence.col(j);
-		}
-		
+			simulatedStateSequence.col(j) = A * simulatedStateSequence.col(j - 1) + B * inputSeqRudAngle[j - 1];
+			simulatedOutputSequence.col(j) = C * simulatedStateSequence.col(j);
+			cout << "Input rudder angle: "<< inputSeqRudAngle[j - 1] << endl;
+			cout << "Output yaw rate " << simulatedOutputSequence.col(j-1) << endl;
+		}	
 	}
+		
+		
 }
 void Nomoto::save(std::string inputSimulationConfiguration , std::string inputSequenceRudderAngle , std::string outputSequenceYawRate)
 {
