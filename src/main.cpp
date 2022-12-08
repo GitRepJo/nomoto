@@ -12,7 +12,6 @@
 
 // You should have received a copy of the GNU General Public License along 
 // with nomoto. If not, see <https://www.gnu.org/licenses/>. 
-
 /**	
     @name main.cpp
 	@brief An example of how to use nomoto_model.hpp and run Nomotos model
@@ -20,15 +19,23 @@
 	@date 10.2022
 */
 
-#include "nomoto_model.hpp"
+#include <nomoto_sim.hpp>
 
 int main()
 {
-    Nomoto Simulation1;
-    
-	Simulation1.read("../configuration.yaml");
-	
-	Simulation1.runSequence();
+    Simulation exampleSim;
 
-	//Simulation1.save("inputSimulationConfiguration","inputSequenceRudderAngle.csv", "outputSequenceYawRate.csv");
+    Simulation::varSim simResult;
+    constNomoto nomotoResult;
+
+    nomotoResult = exampleSim.readNomoto("./nomoto_config.yaml");
+    simResult = exampleSim.readSimulation("./nomoto_config.yaml");
+
+    
+    
+    
+    exampleSim.runNomoto(nomotoResult,simResult);
+
+    simResult.yawRate = 1.0;
+    exampleSim.runNomoto(nomotoResult,simResult);
 }

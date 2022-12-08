@@ -1,0 +1,9 @@
+# Parameters for Nomoto model
+delta: 10
+K: 0.1705
+T: 7.1167
+
+# Parameters for simulation
+step: 0.01
+time: 10.0
+yawRate: 0.0

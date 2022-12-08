@@ -1,29 +1,25 @@
 cmake_minimum_required(VERSION 3.5)
 project(nomoto)
 
-# Default to C99
-if(NOT CMAKE_C_STANDARD)
-  set(CMAKE_C_STANDARD 99)
-endif()
+set(CMAKE_C_STANDARD 99)
 
-# Default to C++14
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
-endif()
+set(CMAKE_CXX_STANDARD 14)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+find_package(Boost 1.45.0 COMPONENTS math) 
 
-add_executable(nomoto main.cpp nomoto_model.cpp)
+add_executable(nomoto src/main.cpp src/nomoto_sim.cpp)
 
+target_include_directories(nomoto PRIVATE include/)
+
+file(COPY config/nomoto_config.yaml DESTINATION ./ )
+
+include_directories(${Boost_INCLUDE_DIRS}) 
 include_directories(${CMAKE_SOURCE_DIR}/yaml-cpp/include)
 
 target_link_libraries(${PROJECT_NAME} yaml-cpp)
-
 target_link_libraries (${PROJECT_NAME} Eigen3::Eigen)
-
-if(BUILD_TESTING)
-endif()

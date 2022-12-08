@@ -3,14 +3,16 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
-                "/usr/include/eigen3"
+                "${workspaceFolder}/include",
+                "/usr/include/eigen3",
+                "/usr/include/boost/math/interpolators/**",
+                "${workspaceFolder}/include/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "gcc-x64"
         }
     ],
     "version": 4
