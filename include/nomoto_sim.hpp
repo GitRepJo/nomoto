@@ -31,19 +31,19 @@
 
 
 /* Read model and simulation parameters and run a Nomoto ship model simulation*/ 
-class Simulation {
+class NomotoSim {
 public:
 
     /**
     * @brief Constructor
     * @param -
     */
-    Simulation();
+    NomotoSim();
     /**
     * @brief Deconstructor
     * @param -
     */
-    ~Simulation();
+    ~NomotoSim();
 
     /* Constants used for the simulation of Nomotos ship model*/
     struct varSim

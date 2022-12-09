@@ -23,19 +23,17 @@
 
 int main()
 {
-    Simulation exampleSim;
+    NomotoSim exampleSim;
 
-    Simulation::varSim simResult;
+    NomotoSim::varSim simResult;
     constNomoto nomotoResult;
 
+    // Read in values from file
     nomotoResult = exampleSim.readNomoto("./nomoto_config.yaml");
     simResult = exampleSim.readSimulation("./nomoto_config.yaml");
+    
+    // Values can also be accessed and modified from inside main function
+    simResult.yawRate = 0.0;
 
-    
-    
-    
-    exampleSim.runNomoto(nomotoResult,simResult);
-
-    simResult.yawRate = 1.0;
     exampleSim.runNomoto(nomotoResult,simResult);
 }

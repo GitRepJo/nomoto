@@ -67,8 +67,7 @@ public:
         double a = - 1/nomCoeff.T;
         double b = nomCoeff.K/nomCoeff.T;
         
-        dxdt[0] = a * x[0] + b * nomCoeff.delta;
-        
+        dxdt[0] = a * x[0] + b * nomCoeff.delta; 
     }
 };
 #endif //NOMOTO_ODE_HPP

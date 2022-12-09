@@ -16,32 +16,27 @@
 
 #include <nomoto_sim.hpp>
 
-Simulation::Simulation()
+NomotoSim::NomotoSim()
 {}
 
-Simulation::~Simulation()
+NomotoSim::~NomotoSim()
 {}
 
-void Simulation::runNomoto(constNomoto cN,Simulation::varSim vS)
+void NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS)
 {
     typedef boost::numeric::odeint::runge_kutta_dopri5< std::array< double, 1 >  > stepper_type;
     
-    std::array<double,1> start_state1 = {0};
+    std::array<double,1> start_state1 = {vS.yawRate};
     
-    constNomoto constant;
-    constant.K = 0.1705;
-    constant.T = 7.1167;
-    constant.delta = 10.0;
-
-    NomotoOde sim(constant);
+    NomotoOde sim(cN);
     
     boost::numeric::odeint::integrate_adaptive( make_controlled( 1E-12 , 1E-12 , stepper_type() ),
-                        sim , start_state1 , 1.0 , 10.0 , 0.1 , write_nomoto );
+                        sim , start_state1 , 0.0 , vS.time , vS.step , write_nomoto );
 }
 
-Simulation::varSim Simulation::readSimulation(std::string simFile)
+NomotoSim::varSim NomotoSim::readSimulation(std::string simFile)
 {
-    Simulation::varSim var;
+    NomotoSim::varSim var;
 
     YAML::Node config = YAML::LoadFile(simFile);
 
@@ -52,7 +47,7 @@ Simulation::varSim Simulation::readSimulation(std::string simFile)
     return var;
 }
 
-constNomoto Simulation::readNomoto(std::string nomotoFile)
+constNomoto NomotoSim::readNomoto(std::string nomotoFile)
 {
     constNomoto con;
     
