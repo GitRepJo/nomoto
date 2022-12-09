@@ -1,17 +1,17 @@
 // Copyright (c) 2022 Jonas Mahler
 	
-// This file is part of ode.
+// This file is part of nomoto.
 
-// ode is free software: you can redistribute it and/or modify it under the terms 
+// nomoto is free software: you can redistribute it and/or modify it under the terms 
 // of the GNU General Public License as published by the Free Software Foundation, 
 // either version 3 of the License, or (at your option) any later version.
 
-// ode is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+// nomoto is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
 // without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
 // See the GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License along 
-// with ode. If not, see <https://www.gnu.org/licenses/>. 
+// with nomoto. If not, see <https://www.gnu.org/licenses/>. 
 
 #ifndef NOMOTO_SIM_HPP
 #define NOMOTO_SIM_HPP
@@ -52,7 +52,7 @@ public:
         double step; // Stepsize for integration
         double time; // Time to end of integration
     };
-
+ 
     /**
     * @brief Run the Nomoto ship model simulation by using a predefined ordinary differential equation
     * @param cN

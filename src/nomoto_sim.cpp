@@ -1,20 +1,21 @@
-
 // Copyright (c) 2022 Jonas Mahler
 	
-// This file is part of ode.
+// This file is part of nomoto.
 
-// ode is free software: you can redistribute it and/or modify it under the terms 
+// nomoto is free software: you can redistribute it and/or modify it under the terms 
 // of the GNU General Public License as published by the Free Software Foundation, 
 // either version 3 of the License, or (at your option) any later version.
 
-// ode is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+// nomoto is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
 // without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
 // See the GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License along 
-// with ode. If not, see <https://www.gnu.org/licenses/>. 
+// with nomoto. If not, see <https://www.gnu.org/licenses/>. 
+
 
 #include <nomoto_sim.hpp>
+#include <nomoto_obs.hpp>
 
 NomotoSim::NomotoSim()
 {}
@@ -30,8 +31,13 @@ void NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS)
     
     NomotoOde sim(cN);
     
+    std::vector<std::array<double,1>> m_states;
+    std::vector<double> m_times;
+    
+    SaveNomoto sav(m_states,m_times);
+    
     boost::numeric::odeint::integrate_adaptive( make_controlled( 1E-12 , 1E-12 , stepper_type() ),
-                        sim , start_state1 , 0.0 , vS.time , vS.step , write_nomoto );
+                        sim , start_state1 , 0.0 , vS.time , vS.step , sav );
 }
 
 NomotoSim::varSim NomotoSim::readSimulation(std::string simFile)
