@@ -48,15 +48,30 @@ public:
     /* Constants used for the simulation of Nomotos ship model*/
     struct varSim
     {
-        double yawRate; // Initial yaw rate
+        double velocity; // Total velocity of the vessel
+        double initYaw; // Initial yaw in degree
+        double initYawRate; // Initial yaw rate in degree/s
+        double initX; // Initial position of x in meter
+        double initY; // Initial position of y in meter
         double step; // Stepsize for integration
         double time; // Time to end of integration
     };
- 
+    
+    /* Save the results of the simulation of Nomotos ship model*/
+    struct resultNomoto
+    {
+        std::vector<double> x_pos; // Position x in m two dimensional carthesian global coordinates
+        std::vector<double> y_pos; // Position y in m two dimensional carthesian global coordinates
+        std::vector<double> time; // Time corresponding to the state
+        std::vector<double> yaw; // Orientation in global coordinates relative to north in degree
+        std::vector<double> yaw_rate; // Yaw rate in degree/s
+        std::vector<double> yaw_acc;  // yaw rate acceleration in degree/s*s
+    };
+
     /**
     * @brief Run the Nomoto ship model simulation by using a predefined ordinary differential equation
-    * @param cN
-    * @param vS
+    * @param cN constNomoto struct to save constants for the Nomoto ODE
+    * @param vS varSim struct to save constants variables specific to the simulation
     */
     void runNomoto(constNomoto cN,varSim vS);
     
@@ -75,6 +90,17 @@ public:
     * @details The variables will be used by boost integration function to set up the simulation
     */
     varSim readSimulation(std::string simFile);
+
+private:
+    /**
+    * @brief Calculate the yaw angle based on the simulation parameters and the position
+    * @param cN constNomoto struct to save constants for the Nomoto ODE
+    * @param vS varSim struct to save constants variables specific to the simulation
+    * @param states yaw rate result of the simulation, in this case only a one dimensional state vector
+    * @param times Corresponding time for the yaw rate (no constant delta t with adaptive intregration)
+    * @return resultNomoto struct with the results (actual yaw angle, position ...)
+    */
+    resultNomoto calcResult(varSim vS, std::vector<std::array<double,1>> &states , std::vector< double > &times);
 };
 
 #endif //NOMOTO_SIM_HPP

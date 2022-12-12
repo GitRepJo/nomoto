@@ -24,13 +24,12 @@ struct constNomoto
     {
         double K; // Hydrodynamic constant dependent on vessel
         double T; // Time constant dependent on vessel
-        double delta; // Rudder angle of the vessel
+        double delta; // Rudder angle of the vessel, positive value equals rudder deflection to the right [degree]
     };
 
 /** 
 * @brief Functor Ordinary Differential Equation for Nomoto ship model
 * @param coeff struct of coefficients used by the nomto ordinary differential equation
-
 * @details 
 * ----Variables/Constants 
 * delta : Rudder angle
@@ -53,6 +52,7 @@ class NomotoOde {
 public:
 
     const constNomoto &nomCoeff;
+    
     NomotoOde( constNomoto &coeff) :  nomCoeff(coeff) { };
 
     void operator() ( const std::array<double,1> &x , std::array<double,1> &dxdt , double t )
@@ -65,12 +65,7 @@ public:
         double a = - 1/nomCoeff.T + t;
         double b = nomCoeff.K/nomCoeff.T + t;
         
-     
-        
-        
-        dxdt[0] = a * x[0] + b * nomCoeff.delta ; 
-        
-        
+        dxdt[0] = a * x[0] + b * -nomCoeff.delta ; 
     }
 };
 #endif //NOMOTO_ODE_HPP

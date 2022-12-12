@@ -7,11 +7,5 @@
             "type": "shell",
             "command": "cd /home/$USER/git/nomoto && mkdir -p build && cmake -DCMAKE_BUILD_TYPE=Releases -S . -B build && cmake --build build && cd build && ./nomoto"
         },
-        {
-            "label": "test",
-            "group": "test",
-            "type": "shell",
-            "command": "cd /home/$USER/git/nomoto/build && ./nomoto "
-        }
     ]
 }

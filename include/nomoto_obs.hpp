@@ -30,9 +30,9 @@ class SaveNomoto
     std::vector<std::array<double,1>> &m_states;
     std::vector<double> &m_times;
 
-    SaveNomoto(std::vector<std::array<double,1>> &states , std::vector< double > &times ) : m_states( states ) , m_times( times ) { }
+    SaveNomoto(std::vector<std::array<double,1>> &states, std::vector< double > &times ) : m_states( states ), m_times( times ) { }
 
-    void operator()( const std::array<double,1> &x , double t )
+    void operator()( const std::array<double,1> &x, const double t )
     {
         m_states.push_back(x);
         m_times.push_back(t);
