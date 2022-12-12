@@ -55,6 +55,7 @@ public:
     
     NomotoOde( constNomoto &coeff) :  nomCoeff(coeff) { };
 
+    // Use vector of arrays to extend state vector of ode if required
     void operator() ( const std::array<double,1> &x , std::array<double,1> &dxdt , double t )
     {
         // Boost integrator e.g. integrate_adaptive requires a variable t

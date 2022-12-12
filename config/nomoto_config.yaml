@@ -1,5 +1,5 @@
 # Parameters for Nomoto model
-delta: 1.0 # Positive value equals rudder deflection to the right [degree]
+delta: 5.0 # Positive value equals rudder deflection to the right [degree]
 K: 0.1705 # Hydrodynamic constant dependent on vessel
 T: 7.1167 # Time constant dependent on vessel
 
@@ -7,7 +7,7 @@ T: 7.1167 # Time constant dependent on vessel
 step: 0.1 # Stepsize for integration []
 time: 10.0 # Simulation time [sec]
 initYawRate: 0.0 # Initial yaw rate in [m/s^2]
-initYaw: 0.0 # 0 degree aligned with positive x-axis, 90 degree aligned with positive y-axis [degree]
+initYaw: 90.0 # 0 degree aligned with positive x-axis, 90 degree aligned with positive y-axis [degree]
 initX: 0.0 # Carthesian global coordinates, vessel center [meter]
 initY: 0.0 # Carthesian global coordinates, vessel center [meter]
 velocity: 1.4 # Velocity [m/s]

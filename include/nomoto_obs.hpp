@@ -30,6 +30,7 @@ class SaveNomoto
     std::vector<std::array<double,1>> &m_states;
     std::vector<double> &m_times;
 
+    // Use vector of arrays to extend state vector of observer if required
     SaveNomoto(std::vector<std::array<double,1>> &states, std::vector< double > &times ) : m_states( states ), m_times( times ) { }
 
     void operator()( const std::array<double,1> &x, const double t )
