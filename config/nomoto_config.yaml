@@ -5,7 +5,7 @@ T: 7.1167 # Time constant dependent on vessel
 
 # Parameters for simulation
 step: 0.1 # Stepsize for integration []
-time: 10.0 # Simulation time [sec]
+time: 1.0 # Simulation time [sec]
 initYawRate: 0.0 # Initial yaw rate in [m/s^2]
 initYaw: 90.0 # 0 degree aligned with positive x-axis, 90 degree aligned with positive y-axis [degree]
 initX: 0.0 # Carthesian global coordinates, vessel center [meter]

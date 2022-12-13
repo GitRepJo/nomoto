@@ -32,11 +32,11 @@ None
 Cmake is used to create the build files.
 Clone the code
 ```
-git clone 
+git clone git@github.com:GitRepJo/nomoto.git
 ```
 Create a build directory in the new git directory
 ```
-cd /home/$USER/git/nomoto 
+cd /home/$USER/nomoto 
 mkdir -p build 
 ```
 Create the build files with cmake and build the code
@@ -51,7 +51,34 @@ This is shown in main.cpp that may serve as an example to run the code.
 
 Run the code
 ```
-cd /home/$USER/git/nomoto 
+cd /home/$USER/nomoto 
 ./nomoto
+```
+
+# Sample output
+This is a terminal sample of the program running as specified in main.cpp and config.yaml
+```
+t[sec]: 0 x[m]: 0 y[m]: 0 yaw[deg]: 90
+
+t[sec]: 0.1 x[m]: 0 y[m]: 0.14 yaw[deg]: 90
+
+t[sec]: 0.21 x[m]: 0 y[m]: 0.29 yaw[deg]: 90
+
+t[sec]: 0.32 x[m]: 0 y[m]: 0.45 yaw[deg]: 89.99
+
+t[sec]: 0.43 x[m]: 0 y[m]: 0.6 yaw[deg]: 89.99
+
+t[sec]: 0.54 x[m]: 0 y[m]: 0.75 yaw[deg]: 89.98
+
+t[sec]: 0.65 x[m]: 0 y[m]: 0.91 yaw[deg]: 89.97
+
+t[sec]: 0.76 x[m]: 0 y[m]: 1.06 yaw[deg]: 89.96
+
+t[sec]: 0.87 x[m]: 0 y[m]: 1.21 yaw[deg]: 89.95
+
+t[sec]: 0.98 x[m]: 0 y[m]: 1.37 yaw[deg]: 89.94
+
+t[sec]: 1 x[m]: 0 y[m]: 1.4 yaw[deg]: 89.94
+
 ```
  
