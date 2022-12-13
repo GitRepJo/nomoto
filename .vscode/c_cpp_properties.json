@@ -6,7 +6,8 @@
                 "${workspaceFolder}/include",
                 "/usr/include/eigen3",
                 "/usr/include/boost/math/interpolators/**",
-                "${workspaceFolder}/include/**"
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/build/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
