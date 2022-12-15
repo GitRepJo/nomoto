@@ -11,3 +11,4 @@ initYaw: 90.0 # 0 degree aligned with positive x-axis, 90 degree aligned with po
 initX: 0.0 # Carthesian global coordinates, vessel center [meter]
 initY: 0.0 # Carthesian global coordinates, vessel center [meter]
 velocity: 1.4 # Velocity [m/s]
+terminal_output: true # Write result struct to terminal if true

@@ -55,6 +55,7 @@ public:
         double initY = 0.0; // Initial position of y in meter
         double step = 0.0; // Stepsize for integration
         double time = 0.0; // Time to end of integration
+        bool terminal_output = true ; // Write result struct to terminal if true
     };
     
     /* Save the results of the simulation of Nomotos ship model*/

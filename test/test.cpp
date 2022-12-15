@@ -23,13 +23,11 @@ TEST_CASE( "Test the Nomoto model")
     
         REQUIRE( constN.delta == 512332123.3212321);
         REQUIRE( varS.initX == 12312.123342123) ;
-
-        constN.delta =5.0;
-        varS.initX == 0.0;
     }
     
-    // Use Figure 3 of K.Nomoto 1956 On the steering qualities of ships in International shipbuilding progress 
-    SECTION("Compare model with original publication approcimation in figure 3")
+    // Use Figure 3 of K.Nomoto 1956 On the steering qualities of ships in International shipbuilding progress
+    // Small deviations because delta rudder angle is set directly to 15 degree instead of rising as described
+    SECTION("Compare model with figure 3 K= 0.065 & T = 30")
     {   
         // Set back struct to values in definition
         constN = {};
@@ -37,17 +35,40 @@ TEST_CASE( "Test the Nomoto model")
 
         constN.delta = 15.0;
         constN.K = 0.065;
-        constN.T = 50; 
+        constN.T = 30; 
         varS.time = 100;
         varS.step = 0.1;
+        varS.terminal_output = false;
         
         resN = exampleSim.runNomoto(constN,varS);
         
         int s_result = resN.yaw_rate.size();
-        std::cout << "turn rate at last integration is:" << resN.yaw_rate.at(s_result-1);
-
+        double end_yaw_rate = resN.yaw_rate.at(s_result-1);
+        
+        REQUIRE( (end_yaw_rate < 1.0) & (end_yaw_rate > 0.90) );
     }
     
-    
+    // Use Figure 3 of K.Nomoto 1956 On the steering qualities of ships in International shipbuilding progress 
+    // Small deviations because delta rudder angle is set directly to 15 degree instead of rising as described
+     SECTION("Compare model with figure 3 K= 0.005 & T = 50")
+    {   
+        // Set back struct to values in definition
+        constN = {};
+        varS = {};
+
+        constN.delta = 15.0;
+        constN.K = 0.05;
+        constN.T = 50; 
+        varS.time = 100;
+        varS.step = 0.1;
+        varS.terminal_output = false;
+        
+        resN = exampleSim.runNomoto(constN,varS);
+        
+        int s_result = resN.yaw_rate.size();
+        double end_yaw_rate = resN.yaw_rate.at(s_result-1);
+        
+        REQUIRE( (end_yaw_rate < 0.7) & (end_yaw_rate > 0.60) );
+    }
 
 }

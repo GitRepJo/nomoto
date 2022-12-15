@@ -42,15 +42,18 @@ NomotoSim::resultNomoto NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS
     resultNomoto res;
     res = calcResult(vS,m_states,m_times);
 
-    for (std::vector<double>::size_type i = 0; i < res.time.size(); i++)
+    if (vS.terminal_output == true)
     {
-        double t = round(res.time.at(i)  *100)/100;
-        double x = round(res.x_pos.at(i) *100)/100;
-        double y = round(res.y_pos.at(i) *100)/100;
-        double yaw = round(res.yaw.at(i) *100)/100;
-        
-        std::cout <<"t[sec]: "<< t <<" x[m]: "<< x <<" y[m]: "<< y <<" yaw[deg]: " << yaw << '\n' << "\n";
-    }   
+        for (std::vector<double>::size_type i = 0; i < res.time.size(); i++)
+        {
+            double t = round(res.time.at(i)  *100)/100;
+            double x = round(res.x_pos.at(i) *100)/100;
+            double y = round(res.y_pos.at(i) *100)/100;
+            double yaw = round(res.yaw.at(i) *100)/100;
+            
+            std::cout <<"t[sec]: "<< t <<" x[m]: "<< x <<" y[m]: "<< y <<" yaw[deg]: " << yaw << '\n' << "\n";
+        } 
+    }  
 
     return res;
 }
@@ -114,6 +117,7 @@ NomotoSim::varSim NomotoSim::readSimulation(std::string simFile)
     var.initX = config["initX"].as<double>(); 
     var.initY = config["initY"].as<double>(); 
     var.velocity= config["velocity"].as<double>();
+    var.terminal_output = config["terminal_output"].as<bool>();
 
     return var;
 }
