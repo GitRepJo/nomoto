@@ -8,24 +8,24 @@ sliding mode controller.
 
 For more information look into 
 
-- K.Nomoto 1956 " On the steering qualities of ships"     
+- K.Nomoto 1956 " On the steering qualities of ships"    
 in International shipbuilding progress
  
-- Muhammad Ejaz and Mou Chen 2017 " Sliding mode control design of a ship    
+- Muhammad Ejaz and Mou Chen 2017 " Sliding mode control design of a ship        
 steering autopilot with input saturation" in International Journal of Advanced    
 Robotic Systems
 
-The program my also serve as a template for ship 
+The program my also serve as a template for ship     
 models with a higher degree of freedom, e.g. 3DoF.      
 
-Odeint is used for integration, which is 
-included in boost. The differential equation 
+Odeint is used for integration, which is     
+included in boost. The differential equation     
 as well as the observer to the function has to     
 be passed to the odeint integrator function.        
 
-Odeint does not allow member functions to be 
-passed to the integrator function. Thus the ode 
-and the observer are functors.They can be found     
+Odeint does not allow member functions to be     
+passed to the integrator function. Thus the ode     
+and the observer are functors.They can be found         
 in nomoto_ode.hpp and nomoto_obs.hpp respectively.      
 
 # Build the example code
