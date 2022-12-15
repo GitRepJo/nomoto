@@ -1,5 +1,5 @@
 # Parameters for Nomoto model
-delta: 5.0 # Positive value equals rudder deflection to the right [degree]
+delta: 5.0 # Positive value equals rudder deflection to the left[degree]
 K: 0.1705 # Hydrodynamic constant dependent on vessel
 T: 7.1167 # Time constant dependent on vessel
 

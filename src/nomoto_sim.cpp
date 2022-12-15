@@ -33,26 +33,18 @@ NomotoSim::resultNomoto NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS
     
     std::vector<std::array<double,1>> m_states;
     std::vector<double> m_times;
-    
+
     SaveNomoto sav(m_states, m_times);
     
     boost::numeric::odeint::integrate_adaptive( make_controlled( 1E-12 , 1E-12 , stepper_type() ),
                         sim , start_state1 , 0.0 , vS.time , vS.step , sav );
 
-    resultNomoto res;
-    res = calcResult(vS,m_states,m_times);
+
+    resultNomoto res = calcResult(vS,m_states,m_times);
 
     if (vS.terminal_output == true)
     {
-        for (std::vector<double>::size_type i = 0; i < res.time.size(); i++)
-        {
-            double t = round(res.time.at(i)  *100)/100;
-            double x = round(res.x_pos.at(i) *100)/100;
-            double y = round(res.y_pos.at(i) *100)/100;
-            double yaw = round(res.yaw.at(i) *100)/100;
-            
-            std::cout <<"t[sec]: "<< t <<" x[m]: "<< x <<" y[m]: "<< y <<" yaw[deg]: " << yaw << '\n' << "\n";
-        } 
+        writeTerminal(res);
     }  
 
     return res;
@@ -133,4 +125,17 @@ constNomoto NomotoSim::readNomoto(std::string nomotoFile)
     con.delta = config["delta"].as<double>();
 
     return con;
+}
+
+void NomotoSim::writeTerminal(NomotoSim::resultNomoto res)
+{
+    for (std::vector<double>::size_type i = 0; i < res.time.size(); i++)
+        {
+            double t = round(res.time.at(i)  *100)/100;
+            double x = round(res.x_pos.at(i) *100)/100;
+            double y = round(res.y_pos.at(i) *100)/100;
+            double yaw = round(res.yaw.at(i) *100)/100;
+            
+            std::cout <<"t[sec]: "<< t <<" x[m]: "<< x <<" y[m]: "<< y <<" yaw[deg]: " << yaw << '\n' << "\n";
+        } 
 }

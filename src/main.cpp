@@ -39,11 +39,9 @@
 int main()
 {
     NomotoSim exampleSim;
-
     NomotoSim::varSim varS;
-    constNomoto constN;
-
     NomotoSim::resultNomoto resN;
+    constNomoto constN;
 
     // Read in values from file
     constN = exampleSim.readNomoto("./nomoto_config.yaml");

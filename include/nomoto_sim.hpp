@@ -103,6 +103,14 @@ private:
     * @return resultNomoto struct with the results (actual yaw angle, position ...)
     */
     resultNomoto calcResult(varSim vS, std::vector<std::array<double,1>> &states , std::vector< double > &times);
+
+    /**
+    * @brief Write the result of the simulation to the terminal 
+    * @param res struct that contains the result of the simulation
+    * @details The values will be rounded to 2 digits after the comma
+    */
+    void writeTerminal(NomotoSim::resultNomoto res);
+
 };
 
 #endif //NOMOTO_SIM_HPP
