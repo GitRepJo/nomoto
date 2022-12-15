@@ -22,9 +22,9 @@
 /* Constants used for Nomoto ship model*/
 struct constNomoto
     {
-        double K; // Hydrodynamic constant dependent on vessel
-        double T; // Time constant dependent on vessel
-        double delta; // Rudder angle of the vessel, positive value equals rudder deflection to the right [degree]
+        double K = 0.0; // Hydrodynamic constant dependent on vessel
+        double T = 0.0; // Time constant dependent on vessel
+        double delta = 0.0; // Rudder angle of the vessel, positive value equals rudder deflection to the right [degree]
     };
 
 /** 

@@ -48,13 +48,13 @@ public:
     /* Constants used for the simulation of Nomotos ship model*/
     struct varSim
     {
-        double velocity; // Total velocity of the vessel
-        double initYaw; // Initial yaw in degree
-        double initYawRate; // Initial yaw rate in degree/s
-        double initX; // Initial position of x in meter
-        double initY; // Initial position of y in meter
-        double step; // Stepsize for integration
-        double time; // Time to end of integration
+        double velocity = 0.0; // Total velocity of the vessel
+        double initYaw = 0.0; // Initial yaw in degree
+        double initYawRate = 0.0; // Initial yaw rate in degree/s
+        double initX = 0.0; // Initial position of x in meter
+        double initY = 0.0; // Initial position of y in meter
+        double step = 0.0; // Stepsize for integration
+        double time = 0.0; // Time to end of integration
     };
     
     /* Save the results of the simulation of Nomotos ship model*/
@@ -72,8 +72,9 @@ public:
     * @brief Run the Nomoto ship model simulation by using a predefined ordinary differential equation
     * @param cN constNomoto struct to save constants for the Nomoto ODE
     * @param vS varSim struct to save constants variables specific to the simulation
+    * @return resultNomoto struct with the results (actual yaw angle, position ...)
     */
-    void runNomoto(constNomoto cN,varSim vS);
+    NomotoSim::resultNomoto runNomoto(constNomoto cN,varSim vS);
     
     /**
     * @brief Read constants for the Nomoto ship model

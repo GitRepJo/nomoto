@@ -23,7 +23,7 @@ NomotoSim::NomotoSim()
 NomotoSim::~NomotoSim()
 {}
 
-void NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS)
+NomotoSim::resultNomoto NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS)
 {
     typedef boost::numeric::odeint::runge_kutta_dopri5< std::array< double, 1 >  > stepper_type;
     
@@ -51,6 +51,8 @@ void NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS)
         
         std::cout <<"t[sec]: "<< t <<" x[m]: "<< x <<" y[m]: "<< y <<" yaw[deg]: " << yaw << '\n' << "\n";
     }   
+
+    return res;
 }
 
 NomotoSim::resultNomoto NomotoSim::calcResult(varSim vS, std::vector<std::array<double,1>> &states , std::vector< double > &times)

@@ -16,13 +16,14 @@ add_executable(nomoto src/main.cpp src/nomoto_sim.cpp)
 
 target_include_directories(nomoto PRIVATE include/)
 
-file(COPY config/nomoto_config.yaml DESTINATION ./ )
+file(COPY config/nomoto_config.yaml test/test_config.yaml DESTINATION ./ )
 
 include_directories(${Boost_INCLUDE_DIRS}) 
 include_directories(${CMAKE_SOURCE_DIR}/yaml-cpp/include)
 
 target_link_libraries(${PROJECT_NAME} yaml-cpp)
 target_link_libraries (${PROJECT_NAME} Eigen3::Eigen)
+
 
 Include(FetchContent)
 
@@ -34,5 +35,14 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(tests test/test.cpp)
+add_executable(tests test/test.cpp src/nomoto_sim.cpp)
+
+target_include_directories(tests PRIVATE include/)
+
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
+
+include_directories(${Boost_INCLUDE_DIRS}) 
+include_directories(${CMAKE_SOURCE_DIR}/yaml-cpp/include)
+
+target_link_libraries(tests PRIVATE yaml-cpp)
+target_link_libraries (tests PRIVATE Eigen3::Eigen)
