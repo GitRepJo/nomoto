@@ -64,7 +64,7 @@ that may serve as an example to run the code.
 
 Run the code
 ```
-cd /home/$USER/nomoto 
+cd /home/$USER/nomoto/build
 ./nomoto
 ```
 
@@ -113,7 +113,7 @@ In the figure, an ascending ruddder angle from 0 to 15 is used.
 
 You can run the test by executing the test executable
 ```
-cd /home/$USER/nomoto 
+cd /home/$USER/nomoto/build
 ./tests
 ```
 # VS Code
