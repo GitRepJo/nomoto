@@ -113,7 +113,7 @@ In the figure, an ascending ruddder angle from 0 to 15 is used.
 
 You can run the test by executing the test executable
 ```
-cd /home/$USER/nomoto/build
+cd /home/$USER/nomoto/build/test
 ./tests
 ```
 # VS Code
