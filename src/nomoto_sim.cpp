@@ -79,7 +79,7 @@ NomotoSim::resultNomoto NomotoSim::calcResult(varSim vS, std::vector<std::array<
         res.yaw.push_back(yaw);
 
          // yaw acceleration = (yaw rate of step - yaw rate of previous step) * time of step
-        double yaw_acc = (res.yaw_rate.at(i) - res.yaw_rate.at(i-1)) * delta_time;
+        double yaw_acc = (res.yaw_rate.at(i) - res.yaw_rate.at(i-1)) / delta_time;
         res.yaw_acc.push_back(yaw_acc);
 
         double yaw_rad = yaw * pi / 180;

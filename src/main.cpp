@@ -48,7 +48,7 @@ int main()
     varS = exampleSim.readSimulation("./nomoto_config.yaml");
     
     // Values can also be accessed and modified from inside main function
-    varS.initYawRate = 0.0;
+    constN.delta = 10.0;
 
     resN = exampleSim.runNomoto(constN,varS);
 }
