@@ -6,23 +6,15 @@
 TEST_CASE( "Test the Nomoto model")
 {
     
-    NomotoSim exampleSim;
-
-    NomotoSim::varSim varS;
-    constNomoto constN;
+    NomotoSim exampleSim("./test_config.yaml","./test_config.yaml");
 
     NomotoSim::resultNomoto resN;
     
 
     SECTION("read values should match expectation")
-    {   
-     
-        // Read in values from file
-        constN = exampleSim.readNomoto("./test_config.yaml");
-        varS = exampleSim.readSimulation("./test_config.yaml");
-    
-        REQUIRE( constN.delta == 512332123.3212321);
-        REQUIRE( varS.initX == 12312.123342123) ;
+    {      
+        REQUIRE( exampleSim.cN.delta == 512332123.3212321);
+        REQUIRE( exampleSim.vS.initX == 12312.123342123) ;
     }
     
     // Use Figure 3 of K.Nomoto 1956 On the steering qualities of ships in International shipbuilding progress
@@ -30,17 +22,19 @@ TEST_CASE( "Test the Nomoto model")
     SECTION("Compare model with figure 3 K= 0.065 & T = 30")
     {   
         // Set back struct to values in definition
-        constN = {};
-        varS = {};
+        exampleSim.cN = {};
+        exampleSim.vS = {};
 
-        constN.delta = 15.0;
-        constN.K = 0.065;
-        constN.T = 30; 
-        varS.time = 100;
-        varS.step = 0.1;
-        varS.terminal_output = false;
+        exampleSim.cN.delta = 15.0;
+        exampleSim.cN.K = 0.065;
+        exampleSim.cN.T = 30; 
+        exampleSim.vS.time = 100;
+        exampleSim.vS.step = 0.1;
+        exampleSim.vS.terminal_output = false;
         
-        resN = exampleSim.runNomoto(constN,varS);
+        exampleSim.sim.set(exampleSim.cN);
+        
+        resN = exampleSim.runNomoto();
         
         int s_result = resN.yaw_rate.size();
         double end_yaw_rate = resN.yaw_rate.at(s_result-1);
@@ -53,17 +47,19 @@ TEST_CASE( "Test the Nomoto model")
      SECTION("Compare model with figure 3 K= 0.005 & T = 50")
     {   
         // Set back struct to values in definition
-        constN = {};
-        varS = {};
+        exampleSim.cN = {};
+        exampleSim.vS = {};
 
-        constN.delta = 15.0;
-        constN.K = 0.05;
-        constN.T = 50; 
-        varS.time = 100;
-        varS.step = 0.1;
-        varS.terminal_output = false;
+        exampleSim.cN.delta = 15.0;
+        exampleSim.cN.K = 0.05;
+        exampleSim.cN.T = 50; 
+        exampleSim.vS.time = 100;
+        exampleSim.vS.step = 0.1;
+        exampleSim.vS.terminal_output = false;
         
-        resN = exampleSim.runNomoto(constN,varS);
+        exampleSim.sim.set(exampleSim.cN);
+        
+        resN = exampleSim.runNomoto();
         
         int s_result = resN.yaw_rate.size();
         double end_yaw_rate = resN.yaw_rate.at(s_result-1); 
@@ -75,18 +71,20 @@ TEST_CASE( "Test the Nomoto model")
     SECTION("position after 1 second and rudder angle 0 with constant velocity")
     {   
         // Set back struct to values in definition
-        constN = {};
-        varS = {};
+        exampleSim.cN = {};
+        exampleSim.vS = {};
 
-        constN.delta = 0.0;
-        constN.K = 0.5;
-        constN.T = 50; 
-        varS.time = 1;
-        varS.step = 0.1;
-        varS.velocity = 15;
-        varS.terminal_output = false;
+        exampleSim.cN.delta = 0.0;
+        exampleSim.cN.K = 0.5;
+        exampleSim.cN.T = 50; 
+        exampleSim.vS.time = 1;
+        exampleSim.vS.step = 0.1;
+        exampleSim.vS.velocity = 15;
+        exampleSim.vS.terminal_output = false;
+
+        exampleSim.sim.set(exampleSim.cN);
         
-        resN = exampleSim.runNomoto(constN,varS);
+        resN = exampleSim.runNomoto();
         
         int s_result = resN.x_pos.size();
 
@@ -101,19 +99,21 @@ TEST_CASE( "Test the Nomoto model")
        SECTION("position after 1 second and rudder angle 0 with constant velocity and initial heading to 90 degree ")
     {   
         // Set back struct to values in definition
-        constN = {};
-        varS = {};
+        exampleSim.cN = {};
+        exampleSim.vS = {};
 
-        constN.delta = 0.0;
-        constN.K = 0.5;
-        constN.T = 50.0; 
-        varS.time = 1.0;
-        varS.step = 0.1;
-        varS.velocity = 15.0;
-        varS.initYaw = 90.0;
-        varS.terminal_output = false;
+        exampleSim.cN.delta = 0.0;
+        exampleSim.cN.K = 0.5;
+        exampleSim.cN.T = 50.0; 
+        exampleSim.vS.time = 1.0;
+        exampleSim.vS.step = 0.1;
+        exampleSim.vS.velocity = 15.0;
+        exampleSim.vS.initYaw = 90.0;
+        exampleSim.vS.terminal_output = false;
+
+        exampleSim.sim.set(exampleSim.cN);
         
-        resN = exampleSim.runNomoto(constN,varS);
+        resN = exampleSim.runNomoto();
         
         int s_result = resN.x_pos.size();
 
@@ -128,19 +128,21 @@ TEST_CASE( "Test the Nomoto model")
     SECTION("yaw angle has to be in positive x,y section for positive rudder deflection")
     {   
         // Set back struct to values in definition
-        constN = {};
-        varS = {};
+        exampleSim.cN = {};
+        exampleSim.vS = {};
 
-        constN.delta = 30.0;
-        constN.K = 0.5;
-        constN.T = 50.0; 
-        varS.time = 1.0;
-        varS.step = 0.1;
-        varS.velocity = 15.0;
-        varS.initYaw = 0.0;
-        varS.terminal_output = false;
+        exampleSim.cN.delta = 30.0;
+        exampleSim.cN.K = 0.5;
+        exampleSim.cN.T = 50.0; 
+        exampleSim.vS.time = 1.0;
+        exampleSim.vS.step = 0.1;
+        exampleSim.vS.velocity = 15.0;
+        exampleSim.vS.initYaw = 0.0;
+        exampleSim.vS.terminal_output = false;
+
+        exampleSim.sim.set(exampleSim.cN);
         
-        resN = exampleSim.runNomoto(constN,varS);
+        resN = exampleSim.runNomoto();
         
         int s_result = resN.x_pos.size();
 
@@ -153,19 +155,21 @@ TEST_CASE( "Test the Nomoto model")
     SECTION("yaw angle has to be in negative x,y section for negative rudder deflection")
     {   
         // Set back struct to values in definition
-        constN = {};
-        varS = {};
+        exampleSim.cN = {};
+        exampleSim.vS = {};
 
-        constN.delta = -30.0;
-        constN.K = 0.5;
-        constN.T = 50.0; 
-        varS.time = 1.0;
-        varS.step = 0.1;
-        varS.velocity = 15.0;
-        varS.initYaw = 0.0;
-        varS.terminal_output = false;
+        exampleSim.cN.delta = -30.0;
+        exampleSim.cN.K = 0.5;
+        exampleSim.cN.T = 50.0; 
+        exampleSim.vS.time = 1.0;
+        exampleSim.vS.step = 0.1;
+        exampleSim.vS.velocity = 15.0;
+        exampleSim.vS.initYaw = 0.0;
+        exampleSim.vS.terminal_output = false;
+
+        exampleSim.sim.set(exampleSim.cN);
         
-        resN = exampleSim.runNomoto(constN,varS);
+        resN = exampleSim.runNomoto();
         
         int s_result = resN.x_pos.size();
 

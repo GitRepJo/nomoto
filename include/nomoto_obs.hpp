@@ -26,19 +26,37 @@
 */
 class SaveNomoto
 {   
-    public:
-
-    std::vector<std::array<double,1>> &m_states;
-    std::vector<double> &m_times;
-
-    // Use vector of arrays to extend state vector of observer if required
-    SaveNomoto(std::vector<std::array<double,1>> &states, std::vector< double > &times ) : m_states( states ), m_times( times ) { }
-
-    void operator()( const std::array<double,1> &x, const double t )
+public:
+     /**
+    * @brief Set parameters for observations
+    * @param states vector of states (yaw rate)
+    * @param times vector of integration steps
+    * @return -
+    * @details -
+    */
+    void set (std::vector<std::array<double,1>> &states, std::vector<double> &times) 
     {
-        m_states.push_back(x);
-        m_times.push_back(t);
+        m_states = &states;
+        m_times = &times;
+    };
+    
+    /**
+    * @brief Observe intermediate steps of odeint
+    * @param x vector of arrays to save state vector derivative (which is in this case one (yaw rate)) 
+    * @param t double time of integration step 
+    * @return -
+    * @details Pass by reference to allows observing the states outside of this function
+    * Use vector of arrays to extend state vector of observer if required
+    */
+    void operator()( const std::array<double,1> &x, const double t )
+    {    
+        m_states->push_back(x);
+        m_times->push_back(t);
     }
+private:
+
+    std::vector<std::array<double,1>> * m_states;
+    std::vector<double> * m_times;
 };
 
 #endif //NOMOTO_OBS_HPP
