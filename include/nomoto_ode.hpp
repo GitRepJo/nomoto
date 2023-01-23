@@ -29,7 +29,7 @@ struct constNomoto
 
 /** 
 * @brief Functor Ordinary Differential Equation for Nomoto ship model
-* @param coeff struct of coefficients used by the nomto ordinary differential equation
+* @param m_nomCoeff struct of coefficients used by the nomto ordinary differential equation
 * @details 
 * ----Variables/Constants 
 * delta : Rudder angle
@@ -51,15 +51,29 @@ class NomotoOde {
 
 public:
 
-    constNomoto m_nomCoeff;
+    constNomoto m_nomCoeff; // Parameters for equation
     
+    /**
+    * @brief Set parameters for equation
+    * @param nomCoeff Struct with parameters for equation
+    * @return -
+    * @details -
+    */
     void set(const constNomoto &nomCoeff)
     {
         m_nomCoeff = nomCoeff;
     }
 
-    // Use vector of arrays to extend state vector of ode if required
-    void operator() ( const std::array<double,1> &x , std::array<double,1> &dxdt , double t )
+    /**
+    * @brief Nomto equation to calculate the yaw acceleration of a ship over time
+    * @param x array for state vector derivative which is in this case one (yaw rate) 
+    * @param dxdt array for state vector second derivative which is in this case one (yaw acceleration) 
+    * @param t double time of integration step
+    * @return -
+    * @details This function is used by odeint internally to compute the integration step according to time
+    * The equation follows K.Nomoto 1956 " On the steering qualities of ships" in International shipbuilding progress
+    */
+    void operator() ( const std::array<double,1> &x , std::array<double,1> &dxdt , double t ) // Use vector of arrays to extend state vector of ode if required
     {
         // Boost integrator e.g. integrate_adaptive requires a variable t
         // t is not used by the ode

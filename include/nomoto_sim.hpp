@@ -37,7 +37,8 @@ public:
 
     /**
     * @brief Constructor
-    * @param -
+    * @param equ_file string global location of .yaml file for equation parameters
+    * @param sim_file string global location of .yaml file for simulation parameters
     */
     NomotoSim(std::string equ_file, std::string sim_file);
     /**
@@ -47,7 +48,7 @@ public:
     ~NomotoSim();
 
     typedef boost::numeric::odeint::runge_kutta_dopri5< std::array< double, 1 >  > stepper_type;
-
+    
     /* Constants used for the simulation of Nomotos ship model*/
     struct varSim
     {
@@ -72,7 +73,7 @@ public:
         std::vector<double> yaw_acc;  // yaw rate acceleration in degree/s*s
     };
 
-    /**
+     /**
     * @brief Run the Nomoto ship model simulation by using a predefined ordinary differential equation
     * @param cN constNomoto struct to save constants for the Nomoto ODE
     * @param vS varSim struct to save constants variables specific to the simulation
@@ -80,7 +81,14 @@ public:
     */
     NomotoSim::resultNomoto runNomoto();
     
-    /**
+    NomotoOde sim; // Equation to simulate with
+    constNomoto cN; // Parameters for equation
+    NomotoSim::varSim vS; // Parameters for simulation
+    
+private:
+   
+
+     /**
     * @brief Read constants for the Nomoto ship model
     * @param nomotoFile .yaml file that matches variables in constNomoto struct
     * @return constNomoto struct with constants for Nomoto
@@ -95,16 +103,7 @@ public:
     * @details The variables will be used by boost integration function to set up the simulation
     */
     varSim readSimulation(std::string simFile);
-
-    SaveNomoto sav;
-    NomotoOde sim;
-    constNomoto cN;
-    NomotoSim::varSim vS;
-    std::vector<std::array<double,1>> m_states;
-    std::vector<double> m_times;
- 
-
-private:
+    
     /**
     * @brief Calculate the yaw angle based on the simulation parameters and the position
     * @param cN constNomoto struct to save constants for the Nomoto ODE
@@ -121,6 +120,11 @@ private:
     * @details The values will be rounded to 2 digits after the comma
     */
     void writeTerminal(NomotoSim::resultNomoto res);
+
+    SaveNomoto sav; // Observer for odeint to get states of integration
+    std::vector<std::array<double,1>> m_states; // Save states of state vector in integration
+    std::vector<double> m_times; // Save time of integration step
+
 
 };
 
