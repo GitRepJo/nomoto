@@ -29,6 +29,8 @@ NomotoSim::resultNomoto NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS
     
     std::array<double,1> start_state1 = {vS.initYawRate};
     
+    NomotoOde sim;
+    
     sim.set(cN);
     
     std::vector<std::array<double,1>> m_states;
@@ -38,7 +40,6 @@ NomotoSim::resultNomoto NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS
     
     boost::numeric::odeint::integrate_adaptive( make_controlled( 1E-12 , 1E-12 , stepper_type() ),
                         sim , start_state1 , 0.0 , vS.time , vS.step , sav );
-
 
     resultNomoto res = calcResult(vS,m_states,m_times);
 
