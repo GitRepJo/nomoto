@@ -36,7 +36,8 @@ NomotoSim::resultNomoto NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS
     std::vector<std::array<double,1>> m_states;
     std::vector<double> m_times;
 
-    SaveNomoto sav(m_states, m_times);
+    SaveNomoto sav;
+    sav.set(m_states, m_times);
     
     boost::numeric::odeint::integrate_adaptive( make_controlled( 1E-12 , 1E-12 , stepper_type() ),
                         sim , start_state1 , 0.0 , vS.time , vS.step , sav );

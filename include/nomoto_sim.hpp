@@ -94,8 +94,9 @@ public:
     */
     varSim readSimulation(std::string simFile);
 
+    SaveNomoto sav;
     NomotoOde sim;
-   
+    
 
 private:
     /**
