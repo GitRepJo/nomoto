@@ -29,7 +29,7 @@ NomotoSim::resultNomoto NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS
     
     std::array<double,1> start_state1 = {vS.initYawRate};
     
-    NomotoOde sim(cN);
+    sim.set(cN);
     
     std::vector<std::array<double,1>> m_states;
     std::vector<double> m_times;

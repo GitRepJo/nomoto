@@ -17,6 +17,7 @@
 #define NOMOTO_OBS_HPP
 
 #include <eigen3/Eigen/Dense>
+#include <vector>
 
 /**
 * @brief Functor to save the result of an integration with boost e.g. adaptive integration

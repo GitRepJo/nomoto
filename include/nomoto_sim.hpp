@@ -17,6 +17,7 @@
 #define NOMOTO_SIM_HPP
 
 #include <nomoto_ode.hpp>
+#include <nomoto_obs.hpp>
 
 #include <eigen3/Eigen/Dense>
 #include <boost/numeric/odeint.hpp>
@@ -92,6 +93,9 @@ public:
     * @details The variables will be used by boost integration function to set up the simulation
     */
     varSim readSimulation(std::string simFile);
+
+    NomotoOde sim;
+   
 
 private:
     /**

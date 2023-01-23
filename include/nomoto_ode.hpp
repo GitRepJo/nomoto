@@ -51,9 +51,12 @@ class NomotoOde {
 
 public:
 
-    const constNomoto &nomCoeff;
+    constNomoto m_nomCoeff;
     
-    NomotoOde( constNomoto &coeff) :  nomCoeff(coeff) { };
+    void set(const constNomoto &nomCoeff)
+    {
+        m_nomCoeff = nomCoeff;
+    }
 
     // Use vector of arrays to extend state vector of ode if required
     void operator() ( const std::array<double,1> &x , std::array<double,1> &dxdt , double t )
@@ -63,10 +66,10 @@ public:
         // Create a dummy use case to avoid warnings
         t = 0.0;
         
-        double a = - 1/nomCoeff.T + t;
-        double b = nomCoeff.K/nomCoeff.T + t;
+        double a = - 1/m_nomCoeff.T + t;
+        double b = m_nomCoeff.K/m_nomCoeff.T + t;
         
-        dxdt[0] = a * x[0] + b * nomCoeff.delta ; 
+        dxdt[0] = a * x[0] + b * m_nomCoeff.delta ; 
     }
 };
 #endif //NOMOTO_ODE_HPP
