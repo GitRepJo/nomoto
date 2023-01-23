@@ -38,17 +38,11 @@
 
 int main()
 {
-    NomotoSim exampleSim;
-    NomotoSim::varSim varS;
-    NomotoSim::resultNomoto resN;
-    constNomoto constN;
+    NomotoSim exampleSim("./nomoto_config.yaml","./nomoto_config.yaml"); // Set initial values to simulation and equation as defined in configuration files.
 
-    // Read in values from file
-    constN = exampleSim.readNomoto("./nomoto_config.yaml");
-    varS = exampleSim.readSimulation("./nomoto_config.yaml");
+    exampleSim.cN.delta = 5.0; // Euation values can also be accessed and modified from inside main function
+    exampleSim.sim.set(exampleSim.cN); // Set new state/parameters to class of equation 
+    exampleSim.vS.step = 0.1; //Simulation values can also be accessed and modified from inside main function
     
-    // Values can also be accessed and modified from inside main function
-    constN.delta = 10.0;
-
-    resN = exampleSim.runNomoto(constN,varS);
+    NomotoSim::resultNomoto resN = exampleSim.runNomoto(); // Run the simulation, use result for further processing if required
 }

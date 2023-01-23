@@ -17,27 +17,22 @@
 #include <nomoto_sim.hpp>
 #include <nomoto_obs.hpp>
 
-NomotoSim::NomotoSim()
-{}
+NomotoSim::NomotoSim(std::string equ_file, std::string sim_file) 
+{  
+    cN = readNomoto(equ_file);
+    vS = readSimulation(sim_file);
+    
+    sim.set(cN); 
+    sav.set(m_states, m_times);    
+}
 
 NomotoSim::~NomotoSim()
 {}
 
-NomotoSim::resultNomoto NomotoSim::runNomoto(constNomoto cN,NomotoSim::varSim vS)
+NomotoSim::resultNomoto NomotoSim::runNomoto()
 {
-    typedef boost::numeric::odeint::runge_kutta_dopri5< std::array< double, 1 >  > stepper_type;
     
     std::array<double,1> start_state1 = {vS.initYawRate};
-    
-    NomotoOde sim;
-    
-    sim.set(cN);
-    
-    std::vector<std::array<double,1>> m_states;
-    std::vector<double> m_times;
-
-    SaveNomoto sav;
-    sav.set(m_states, m_times);
     
     boost::numeric::odeint::integrate_adaptive( make_controlled( 1E-12 , 1E-12 , stepper_type() ),
                         sim , start_state1 , 0.0 , vS.time , vS.step , sav );

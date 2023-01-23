@@ -39,12 +39,14 @@ public:
     * @brief Constructor
     * @param -
     */
-    NomotoSim();
+    NomotoSim(std::string equ_file, std::string sim_file);
     /**
     * @brief Deconstructor
     * @param -
     */
     ~NomotoSim();
+
+    typedef boost::numeric::odeint::runge_kutta_dopri5< std::array< double, 1 >  > stepper_type;
 
     /* Constants used for the simulation of Nomotos ship model*/
     struct varSim
@@ -76,7 +78,7 @@ public:
     * @param vS varSim struct to save constants variables specific to the simulation
     * @return resultNomoto struct with the results (actual yaw angle, position ...)
     */
-    NomotoSim::resultNomoto runNomoto(constNomoto cN,varSim vS);
+    NomotoSim::resultNomoto runNomoto();
     
     /**
     * @brief Read constants for the Nomoto ship model
@@ -96,7 +98,11 @@ public:
 
     SaveNomoto sav;
     NomotoOde sim;
-    
+    constNomoto cN;
+    NomotoSim::varSim vS;
+    std::vector<std::array<double,1>> m_states;
+    std::vector<double> m_times;
+ 
 
 private:
     /**
